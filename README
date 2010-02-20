@@ -1,0 +1,6 @@
+This is a custom distribution of FreeImage, version 3.13.1, with a CMake-based build
+system.
+
+FreeImage's license is unchanged: this library is free software; you can redistribute
+it and/or modify it under the terms of the 'FreeImage Public License - Version 1.0'. This
+license is in the file license-fi.txt.
