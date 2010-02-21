@@ -19,7 +19,7 @@ This distribution use zlib as a GIT submodule. To download it, do:
 	$ git submodule update
 
 If your project already contains another zlib instance, you can tell FreeImage to use it
-instead. Fot that, don't download the submodule, and set the CMake variable
+instead. For that, don't download the submodule, and set the CMake variable
 FREEIMAGE_ZLIB_PATH.
 
 
