@@ -91,6 +91,18 @@ set(SRCS FreeImage/BitmapAccess.cpp
          FreeImage/tmoDrago03.cpp
          FreeImage/tmoFattal02.cpp
          FreeImage/tmoReinhard05.cpp
+         FreeImageToolkit/BSplineRotate.cpp
+         FreeImageToolkit/Background.cpp
+         FreeImageToolkit/Channels.cpp
+         FreeImageToolkit/ClassicRotate.cpp
+         FreeImageToolkit/Colors.cpp
+         FreeImageToolkit/CopyPaste.cpp
+         FreeImageToolkit/Display.cpp
+         FreeImageToolkit/Flip.cpp
+         FreeImageToolkit/JPEGTransform.cpp
+         FreeImageToolkit/MultigridPoissonSolver.cpp
+         FreeImageToolkit/Rescale.cpp
+         FreeImageToolkit/Resize.cpp
          Metadata/Exif.cpp
          Metadata/FIRational.cpp
          Metadata/FreeImageTag.cpp
