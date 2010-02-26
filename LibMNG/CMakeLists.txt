@@ -3,7 +3,7 @@ set(SRCS libmng_callback_xs.c
          libmng_chunk_descr.c
          libmng_chunk_io.c
          libmng_chunk_prc.c
-         libmng_chunk_xs.c
+         #libmng_chunk_xs.c
          libmng_cms.c
          libmng_display.c
          libmng_dither.c
@@ -15,7 +15,7 @@ set(SRCS libmng_callback_xs.c
          libmng_pixels.c
          libmng_prop_xs.c
          libmng_read.c
-         libmng_trace.c
+         #libmng_trace.c
          libmng_write.c
          libmng_zlib.c
 )

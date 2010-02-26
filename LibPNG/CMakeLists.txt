@@ -1,7 +1,7 @@
 # List the source files
 set(SRCS png.c
          pngerror.c
-         pnggccrd.c
+         #pnggccrd.c
          pngget.c
          pngmem.c
          pngpread.c
@@ -11,7 +11,7 @@ set(SRCS png.c
          pngrutil.c
          pngset.c
          pngtrans.c
-         pngvcrd.c
+         #pngvcrd.c
          pngwio.c
          pngwrite.c
          pngwtran.c
