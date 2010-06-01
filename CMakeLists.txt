@@ -6,15 +6,35 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
 endif()
 
-if (NOT FREEIMAGE_ZLIB_PATH)
-    set(FREEIMAGE_ZLIB_PATH "" CACHE STRING "Path to the zlib source files (by default: ${FREEIMAGE_SOURCE_DIR}/ZLib)")
-endif()
-
 # Set the output path
 if (NOT ATHENA_BINARY_DIR)
     set(ATHENA_BINARY_DIR "${FREEIMAGE_BINARY_DIR}")
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FREEIMAGE_BINARY_DIR}/lib")
 endif()
+
+# Import XMake
+if (EXISTS "${FREEIMAGE_SOURCE_DIR}/xmake/XMake.cmake")
+    include("${FREEIMAGE_SOURCE_DIR}/xmake/XMake.cmake")
+endif()
+
+# Process the dependencies
+if (NOT DEFINED XMAKE_ZLIB_INCLUDE_PATHS)
+    add_subdirectory(ZLib)
+endif()
+
+# XMake settings
+xmake_init_static(FREEIMAGE)
+xmake_add_include_paths(FREEIMAGE ${FREEIMAGE_SOURCE_DIR}
+                                  ${FREEIMAGE_SOURCE_DIR}/DeprecationManager
+                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Half
+                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Iex
+                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmImf
+                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Imath
+                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmThread
+                                  ${XMAKE_ZLIB_INCLUDE_PATHS})
+xmake_add_link_paths(FREEIMAGE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
+xmake_add_link_targets(FREEIMAGE freeimage jpeg mng openexr openjpeg png rawlite tiff "${XMAKE_ZLIB_LINK_TARGETS}")
+xmake_add_compile_definitions(FREEIMAGE "-DFREEIMAGE_LIB" "-DOPJ_STATIC")
 
 # Subdirectories to process
 add_subdirectory(LibJPEG)
@@ -24,11 +44,6 @@ add_subdirectory(LibPNG)
 add_subdirectory(LibRawLite)
 add_subdirectory(LibTIFF)
 add_subdirectory(OpenEXR)
-
-if (NOT FREEIMAGE_ZLIB_PATH)
-    add_subdirectory(ZLib)
-endif()
-
 
 # List the source files
 set(SRCS FreeImage/BitmapAccess.cpp
@@ -113,13 +128,7 @@ set(SRCS FreeImage/BitmapAccess.cpp
 )
 
 # List the include paths
-include_directories(. DeprecationManager OpenEXR/Half OpenEXR/Iex OpenEXR/IlmImf OpenEXR/Imath OpenEXR/IlmThread)
-
-if (NOT FREEIMAGE_ZLIB_PATH)
-    include_directories(ZLib)
-else()
-    include_directories(${FREEIMAGE_ZLIB_PATH})
-endif()
+xmake_include_directories(FREEIMAGE)
 
 # Declaration of the library
 add_library(freeimage STATIC ${SRCS})
