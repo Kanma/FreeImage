@@ -1,3 +1,5 @@
+include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
+
 # List the source files
 set(SRCS tif_aux.c
          tif_close.c

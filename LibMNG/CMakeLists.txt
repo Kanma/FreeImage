@@ -1,3 +1,5 @@
+include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
+
 # List the source files
 set(SRCS libmng_callback_xs.c
          libmng_chunk_descr.c

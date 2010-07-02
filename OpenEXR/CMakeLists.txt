@@ -1,3 +1,5 @@
+include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
+
 # List the source files
 set(SRCS Half/half.cpp
          Iex/IexBaseExc.cpp
