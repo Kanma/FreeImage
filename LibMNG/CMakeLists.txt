@@ -27,7 +27,7 @@ add_library(mng STATIC ${SRCS})
 
 # Compilation settings
 if (NOT WIN32)
-    set_target_properties(mng PROPERTIES COMPILE_FLAGS "-w")
+    set_target_properties(mng PROPERTIES COMPILE_FLAGS "-w -fPIC")
 else()
     set_target_properties(mng PROPERTIES COMPILE_FLAGS "/W0")
     set_target_properties(mng PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")

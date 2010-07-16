@@ -137,7 +137,7 @@ add_library(freeimage STATIC ${SRCS})
 set_target_properties(freeimage PROPERTIES COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;_CRT_SECURE_NO_DEPRECATE;LIBRAW_NODLL")
 
 if (NOT WIN32)
-    set_target_properties(freeimage PROPERTIES COMPILE_FLAGS "-w")
+    set_target_properties(freeimage PROPERTIES COMPILE_FLAGS "-w -fPIC")
 else()
     set_target_properties(freeimage PROPERTIES COMPILE_FLAGS "/W0")
 endif()

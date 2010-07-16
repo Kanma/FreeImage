@@ -50,7 +50,7 @@ add_library(tiff STATIC ${SRCS})
 
 # Compilation settings
 if (NOT WIN32)
-    set_target_properties(tiff PROPERTIES COMPILE_FLAGS "-w")
+    set_target_properties(tiff PROPERTIES COMPILE_FLAGS "-w -fPIC")
 else()
     set_target_properties(tiff PROPERTIES COMPILE_FLAGS "/W0")
     set_target_properties(tiff PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")

@@ -52,6 +52,8 @@ set(SRCS jaricom.c
 add_library(jpeg STATIC ${SRCS})
 
 # Compilation settings
-if (WIN32)
+if (NOT WIN32)
+    set_target_properties(jpeg PROPERTIES COMPILE_FLAGS "-fPIC")
+else()
     set_target_properties(jpeg PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
