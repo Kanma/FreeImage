@@ -14,7 +14,7 @@ add_library(rawlite STATIC ${SRCS})
 set_target_properties(rawlite PROPERTIES COMPILE_DEFINITIONS "LIBRAW_NODLL;LIBRAW_LIBRARY_BUILD;NO_LCMS")
 
 if (NOT WIN32)
-    set_target_properties(rawlite PROPERTIES COMPILE_FLAGS "-w")
+    set_target_properties(rawlite PROPERTIES COMPILE_FLAGS "-w -fPIC")
 else()
     set_target_properties(rawlite PROPERTIES COMPILE_FLAGS "/W0")
 endif()
