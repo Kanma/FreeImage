@@ -19,13 +19,13 @@ set(SRCS bio.c
          tgt.c
 )
 
-# Declaration of the library
-add_library(openjpeg STATIC ${SRCS})
 
-# Compilation settings
+# Declaration of the library
+xmake_create_static_library(OPENJPEG openjpeg ${SRCS})
+
 if (NOT WIN32)
-    set_target_properties(openjpeg PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(OPENJPEG COMPILE_FLAGS "-w")
 else()
-    set_target_properties(openjpeg PROPERTIES COMPILE_FLAGS "/W0")
-    set_target_properties(openjpeg PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+    xmake_add_to_property(OPENJPEG COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(OPENJPEG COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()

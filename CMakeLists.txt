@@ -1,42 +1,46 @@
 cmake_minimum_required(VERSION 2.6)
 project(FREEIMAGE)
 
-# Options
-if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build, options are: None (CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel." FORCE)
+
+##########################################################################################
+# XMake-related settings
+
+# Set the output paths
+if (NOT DEFINED XMAKE_BINARY_DIR)
+    set(XMAKE_BINARY_DIR "${FREEIMAGE_BINARY_DIR}")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/bin")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/lib")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${XMAKE_BINARY_DIR}/bin")
 endif()
 
-# Set the output path
-if (NOT ATHENA_BINARY_DIR)
-    set(ATHENA_BINARY_DIR "${FREEIMAGE_BINARY_DIR}")
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${FREEIMAGE_BINARY_DIR}/lib")
+# Set the dependencies path
+if (NOT DEFINED XMAKE_DEPENDENCIES_DIR)
+    set(XMAKE_DEPENDENCIES_DIR "${FREEIMAGE_SOURCE_DIR}/dependencies")
 endif()
 
-# Import XMake
-if (EXISTS "${FREEIMAGE_SOURCE_DIR}/xmake/XMake.cmake")
-    include("${FREEIMAGE_SOURCE_DIR}/xmake/XMake.cmake")
+
+##########################################################################################
+# XMake importation
+
+if (NOT EXISTS "${XMAKE_DEPENDENCIES_DIR}/XMake/XMake.cmake")
+    message(FATAL_ERROR
+"Missing dependency: XMake
+This distribution of FreeImage requires the following dependencies:
+   - XMake
+   - ZLib
+They are provided as GIT submodules of this repository.
+Did you forgot to execute the following commands?
+   git submodule init
+   git submodule update")
 endif()
 
-# Process the dependencies
-if (NOT DEFINED XMAKE_ZLIB_INCLUDE_PATHS)
-    add_subdirectory(ZLib)
-endif()
+include("${XMAKE_DEPENDENCIES_DIR}/XMake/XMake.cmake")
 
-# XMake settings
-xmake_init_static(FREEIMAGE)
-xmake_add_include_paths(FREEIMAGE ${FREEIMAGE_SOURCE_DIR}
-                                  ${FREEIMAGE_SOURCE_DIR}/DeprecationManager
-                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Half
-                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Iex
-                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmImf
-                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Imath
-                                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmThread
-                                  ${XMAKE_ZLIB_INCLUDE_PATHS})
-xmake_add_link_paths(FREEIMAGE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
-xmake_add_link_targets(FREEIMAGE freeimage jpeg mng openexr openjpeg png rawlite tiff "${XMAKE_ZLIB_LINK_TARGETS}")
-xmake_add_compile_definitions(FREEIMAGE "-DFREEIMAGE_LIB" "-DOPJ_STATIC")
 
-# Subdirectories to process
+##########################################################################################
+# Process subdirectories
+
+add_subdirectory(dependencies)
 add_subdirectory(LibJPEG)
 add_subdirectory(LibMNG)
 add_subdirectory(LibOpenJPEG)
@@ -44,6 +48,10 @@ add_subdirectory(LibPNG)
 add_subdirectory(LibRawLite)
 add_subdirectory(LibTIFF)
 add_subdirectory(OpenEXR)
+
+
+##########################################################################################
+# Declaration of the library
 
 # List the source files
 set(SRCS FreeImage/BitmapAccess.cpp
@@ -128,16 +136,27 @@ set(SRCS FreeImage/BitmapAccess.cpp
 )
 
 # List the include paths
-xmake_include_directories(FREEIMAGE)
+include_directories(${FREEIMAGE_SOURCE_DIR}
+                    ${FREEIMAGE_SOURCE_DIR}/DeprecationManager
+)
+
+xmake_import_search_paths(OPENEXR)
+xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-add_library(freeimage STATIC ${SRCS})
+xmake_create_static_library(FREEIMAGE freeimage ${SRCS})
 
-# Compilation settings
-set_target_properties(freeimage PROPERTIES COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;_CRT_SECURE_NO_DEPRECATE;LIBRAW_NODLL")
+xmake_add_to_list_property(FREEIMAGE PROPERTIES COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;LIBRAW_NODLL")
 
 if (NOT WIN32)
-    set_target_properties(freeimage PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(FREEIMAGE COMPILE_FLAGS "-w")
 else()
-    set_target_properties(freeimage PROPERTIES COMPILE_FLAGS "/W0")
+    xmake_add_to_property(FREEIMAGE COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(FREEIMAGE COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+xmake_project_link(FREEIMAGE JPEG MNG OPENEXR OPENJPEG PNG RAWLITE TIFF ZLIB)
+
+# Exportations
+xmake_export_include_paths(FREEIMAGE ${FREEIMAGE_SOURCE_DIR})
+xmake_export_compile_definitions(FREEIMAGE "FREEIMAGE_LIB" "OPJ_STATIC")

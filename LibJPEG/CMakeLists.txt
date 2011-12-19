@@ -48,12 +48,11 @@ set(SRCS jaricom.c
          transupp.c
 )
 
+
 # Declaration of the library
-add_library(jpeg STATIC ${SRCS})
+xmake_create_static_library(JPEG jpeg ${SRCS})
 
 # Compilation settings
-if (NOT WIN32)
-    set_target_properties(jpeg PROPERTIES COMPILE_FLAGS "-fPIC")
-else()
-    set_target_properties(jpeg PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+if (WIN32)
+    xmake_add_to_list_property(JPEG COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()

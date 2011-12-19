@@ -5,16 +5,17 @@ set(SRCS src/libraw_c_api.cpp
          internal/dcraw_fileio.cpp
 )
 
+# List the include paths
 include_directories(.)
 
 # Declaration of the library
-add_library(rawlite STATIC ${SRCS})
+xmake_create_static_library(RAWLITE rawlite ${SRCS})
 
-# Compilation settings
-set_target_properties(rawlite PROPERTIES COMPILE_DEFINITIONS "LIBRAW_NODLL;LIBRAW_LIBRARY_BUILD;NO_LCMS")
+xmake_add_to_list_property(RAWLITE COMPILE_DEFINITIONS "LIBRAW_NODLL;LIBRAW_LIBRARY_BUILD;NO_LCMS")
 
 if (NOT WIN32)
-    set_target_properties(rawlite PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(RAWLITE COMPILE_FLAGS "-w")
 else()
-    set_target_properties(rawlite PROPERTIES COMPILE_FLAGS "/W0")
+    xmake_add_to_property(RAWLITE COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(RAWLITE COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()

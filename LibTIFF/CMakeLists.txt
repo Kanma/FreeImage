@@ -1,5 +1,3 @@
-include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
-
 # List the source files
 set(SRCS tif_aux.c
          tif_close.c
@@ -39,19 +37,16 @@ set(SRCS tif_aux.c
 )
 
 # List the include paths
-if (NOT FREEIMAGE_ZLIB_PATH)
-    include_directories(${FREEIMAGE_SOURCE_DIR}/ZLib)
-else()
-    include_directories(${FREEIMAGE_ZLIB_PATH})
-endif()
+xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-add_library(tiff STATIC ${SRCS})
+xmake_create_static_library(TIFF tiff ${SRCS})
 
-# Compilation settings
 if (NOT WIN32)
-    set_target_properties(tiff PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(TIFF COMPILE_FLAGS "-w")
 else()
-    set_target_properties(tiff PROPERTIES COMPILE_FLAGS "/W0")
-    set_target_properties(tiff PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+    xmake_add_to_property(TIFF COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(TIFF COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+xmake_project_link(TIFF ZLIB)

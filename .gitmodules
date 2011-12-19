@@ -1,6 +1,6 @@
-[submodule "ZLib"]
-	path = ZLib
-	url = git://github.com/Kanma/Athena-Dependencies-zlib.git
-[submodule "xmake"]
-	path = xmake
+[submodule "dependencies/XMake"]
+	path = dependencies/XMake
 	url = git://github.com/Kanma/XMake.git
+[submodule "dependencies/zlib"]
+	path = dependencies/zlib
+	url = git://github.com/Kanma/zlib.git

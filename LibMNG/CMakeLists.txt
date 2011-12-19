@@ -1,5 +1,3 @@
-include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
-
 # List the source files
 set(SRCS libmng_callback_xs.c
          libmng_chunk_descr.c
@@ -22,13 +20,18 @@ set(SRCS libmng_callback_xs.c
          libmng_zlib.c
 )
 
-# Declaration of the library
-add_library(mng STATIC ${SRCS})
 
-# Compilation settings
+# List the include paths
+xmake_import_search_paths(ZLIB)
+
+# Declaration of the library
+xmake_create_static_library(MNG mng ${SRCS})
+
 if (NOT WIN32)
-    set_target_properties(mng PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(MNG COMPILE_FLAGS "-w")
 else()
-    set_target_properties(mng PROPERTIES COMPILE_FLAGS "/W0")
-    set_target_properties(mng PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+    xmake_add_to_property(MNG COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(MNG COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+xmake_project_link(MNG ZLIB)

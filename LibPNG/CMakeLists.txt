@@ -1,5 +1,3 @@
-include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
-
 # List the source files
 set(SRCS png.c
          pngerror.c
@@ -20,13 +18,17 @@ set(SRCS png.c
          pngwutil.c
 )
 
-# Declaration of the library
-add_library(png STATIC ${SRCS})
+# List the include paths
+xmake_import_search_paths(ZLIB)
 
-# Compilation settings
+# Declaration of the library
+xmake_create_static_library(PNG png ${SRCS})
+
 if (NOT WIN32)
-    set_target_properties(png PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(PNG COMPILE_FLAGS "-w")
 else()
-    set_target_properties(png PROPERTIES COMPILE_FLAGS "/W0")
-    set_target_properties(png PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+    xmake_add_to_property(PNG COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(PNG COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+xmake_project_link(PNG ZLIB)

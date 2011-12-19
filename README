@@ -1,4 +1,4 @@
-This is a custom distribution of FreeImage, version 3.13.1, with a CMake-based build
+This is a custom distribution of FreeImage, version 3.13.1, with a XMake-based build
 system.
 
 
@@ -13,14 +13,10 @@ license is in the file license-fi.txt.
 Submodules
 ----------
 
-This distribution use zlib as a GIT submodule. To download it, do:
+This distribution use zlib and XMake as GIT submodules. To download them, do:
 
 	$ git submodule init
 	$ git submodule update
-
-If your project already contains another zlib instance, you can tell FreeImage to use it
-instead. For that, don't download the submodule, and set the CMake variable
-FREEIMAGE_ZLIB_PATH.
 
 
 Compilation

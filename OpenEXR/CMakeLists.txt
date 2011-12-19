@@ -1,5 +1,3 @@
-include_directories(${XMAKE_ZLIB_INCLUDE_PATHS})
-
 # List the source files
 set(SRCS Half/half.cpp
          Iex/IexBaseExc.cpp
@@ -74,22 +72,33 @@ set(SRCS Half/half.cpp
          Imath/ImathVec.cpp
 )
 
-# List the include paths
-include_directories(. ./Half ./Iex ./IlmImf ./IlmThread ./Imath)
 
-if (NOT FREEIMAGE_ZLIB_PATH)
-    include_directories(${FREEIMAGE_SOURCE_DIR}/ZLib)
-else()
-    include_directories(${FREEIMAGE_ZLIB_PATH})
-endif()
+# List the include paths
+set(INCLUDE_PATHS ${FREEIMAGE_SOURCE_DIR}/OpenEXR/
+                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Half
+                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Iex
+                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmImf
+                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/Imath
+                  ${FREEIMAGE_SOURCE_DIR}/OpenEXR/IlmThread
+)
+
+include_directories(${INCLUDE_PATHS})
+
+xmake_import_search_paths(ZLIB)
+
 
 # Declaration of the library
-add_library(openexr STATIC ${SRCS})
+xmake_create_static_library(OPENEXR openexr ${SRCS})
 
-# Compilation settings
 if (NOT WIN32)
-    set_target_properties(openexr PROPERTIES COMPILE_FLAGS "-w -fPIC")
+    xmake_add_to_property(OPENEXR COMPILE_FLAGS "-w")
 else()
-    set_target_properties(openexr PROPERTIES COMPILE_FLAGS "/W0")
-    set_target_properties(openexr PROPERTIES COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
+    xmake_add_to_property(OPENEXR COMPILE_FLAGS "/W0")
+    xmake_add_to_list_property(OPENEXR COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+xmake_project_link(OPENEXR ZLIB)
+
+
+# Exportations
+xmake_export_include_paths(OPENEXR ${INCLUDE_PATHS})
