@@ -23,9 +23,14 @@ set(SRCS bio.c
 # Declaration of the library
 xmake_create_static_library(OPENJPEG openjpeg ${SRCS})
 
+xmake_add_to_list_property(OPENJPEG COMPILE_DEFINITIONS "OPJ_STATIC")
+
 if (NOT WIN32)
     xmake_add_to_property(OPENJPEG COMPILE_FLAGS "-w")
 else()
     xmake_add_to_property(OPENJPEG COMPILE_FLAGS "/W0")
     xmake_add_to_list_property(OPENJPEG COMPILE_DEFINITIONS "_CRT_SECURE_NO_DEPRECATE")
 endif()
+
+# Exportations
+xmake_export_compile_definitions(OPENJPEG "OPJ_STATIC")

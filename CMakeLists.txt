@@ -146,7 +146,7 @@ xmake_import_search_paths(ZLIB)
 # Declaration of the library
 xmake_create_static_library(FREEIMAGE freeimage ${SRCS})
 
-xmake_add_to_list_property(FREEIMAGE PROPERTIES COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;LIBRAW_NODLL")
+xmake_add_to_list_property(FREEIMAGE COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;LIBRAW_NODLL")
 
 if (NOT WIN32)
     xmake_add_to_property(FREEIMAGE COMPILE_FLAGS "-w")
@@ -159,4 +159,4 @@ xmake_project_link(FREEIMAGE JPEG MNG OPENEXR OPENJPEG PNG RAWLITE TIFF ZLIB)
 
 # Exportations
 xmake_export_include_paths(FREEIMAGE ${FREEIMAGE_SOURCE_DIR})
-xmake_export_compile_definitions(FREEIMAGE "FREEIMAGE_LIB" "OPJ_STATIC")
+xmake_export_compile_definitions(FREEIMAGE "FREEIMAGE_LIB" "OPJ_STATIC" "LIBRAW_NODLL")
