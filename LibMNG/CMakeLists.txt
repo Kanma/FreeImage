@@ -1,3 +1,29 @@
+# List the header files
+set(HEADERS libmng.h
+            libmng_chunk_descr.h
+            libmng_chunk_io.h
+            libmng_chunk_prc.h
+            libmng_chunks.h
+            libmng_cms.h
+            libmng_conf.h
+            libmng_data.h
+            libmng_display.h
+            libmng_dither.h
+            libmng_error.h
+            libmng_filter.h
+            libmng_jpeg.h
+            libmng_memory.h
+            libmng_object_prc.h
+            libmng_objects.h
+            libmng_pixels.h
+            libmng_read.h
+            libmng_trace.h
+            libmng_types.h
+            libmng_write.h
+            libmng_zlib.h
+)
+
+
 # List the source files
 set(SRCS libmng_callback_xs.c
          libmng_chunk_descr.c
@@ -25,7 +51,7 @@ set(SRCS libmng_callback_xs.c
 xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-xmake_create_static_library(MNG mng ${SRCS})
+xmake_create_static_library(MNG mng ${HEADERS} ${SRCS})
 
 if (NOT WIN32)
     xmake_add_to_property(MNG COMPILE_FLAGS "-w")

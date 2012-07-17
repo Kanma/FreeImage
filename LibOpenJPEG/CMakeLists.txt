@@ -1,3 +1,30 @@
+# List the header files
+set(HEADERS bio.h
+            cio.h
+            dwt.h
+            event.h
+            fix.h
+            image.h
+            int.h
+            j2k.h
+            j2k_lib.h
+            jp2.h
+            jpt.h
+            mct.h
+            mqc.h
+            openjpeg.h
+            opj_includes.h
+            opj_malloc.h
+            pi.h
+            raw.h
+            t1.h
+            t1_luts.h
+            t2.h
+            tcd.h
+            tgt.h
+)
+
+
 # List the source files
 set(SRCS bio.c
          cio.c
@@ -21,7 +48,7 @@ set(SRCS bio.c
 
 
 # Declaration of the library
-xmake_create_static_library(OPENJPEG openjpeg ${SRCS})
+xmake_create_static_library(OPENJPEG openjpeg ${HEADERS} ${SRCS})
 
 xmake_add_to_list_property(OPENJPEG COMPILE_DEFINITIONS "OPJ_STATIC")
 

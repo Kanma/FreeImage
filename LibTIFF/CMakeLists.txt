@@ -1,3 +1,17 @@
+# List the header files
+set(HEADERS t4.h
+            tif_config.h
+            tif_dir.h
+            tif_fax3.h
+            tif_predict.h
+            tiff.h
+            tiffio.h
+            tiffiop.h
+            tiffvers.h
+            uvcode.h
+)
+
+
 # List the source files
 set(SRCS tif_aux.c
          tif_close.c
@@ -40,7 +54,7 @@ set(SRCS tif_aux.c
 xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-xmake_create_static_library(TIFF tiff ${SRCS})
+xmake_create_static_library(TIFF tiff ${HEADERS} ${SRCS})
 
 if (NOT WIN32)
     xmake_add_to_property(TIFF COMPILE_FLAGS "-w")

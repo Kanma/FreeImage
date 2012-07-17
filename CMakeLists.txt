@@ -53,6 +53,21 @@ add_subdirectory(OpenEXR)
 ##########################################################################################
 # Declaration of the library
 
+# List the header files
+set(HEADERS CacheFile.h
+            FreeImage.h
+            FreeImageIO.h
+            Plugin.h
+            Quantizers.h
+            ToneMapping.h
+            Utilities.h
+            FreeImage/PSDParser.h
+            FreeImageToolkit/Filters.h
+            FreeImageToolkit/Resize.h
+            Metadata/FIRational.h
+            Metadata/FreeImageTag.h
+)
+
 # List the source files
 set(SRCS FreeImage/BitmapAccess.cpp
          FreeImage/CacheFile.cpp
@@ -144,7 +159,7 @@ xmake_import_search_paths(OPENEXR)
 xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-xmake_create_static_library(FREEIMAGE freeimage ${SRCS})
+xmake_create_static_library(FREEIMAGE freeimage ${HEADERS} ${SRCS})
 
 xmake_add_to_list_property(FREEIMAGE COMPILE_DEFINITIONS "OPJ_STATIC;FREEIMAGE_LIB;LIBRAW_NODLL")
 

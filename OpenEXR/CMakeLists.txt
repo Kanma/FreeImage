@@ -1,3 +1,121 @@
+# List the header files
+set(HEADERS IlmBaseConfig.h
+            OpenEXRConfig.h
+            Half/eLut.h
+            Half/half.h
+            Half/halfFunction.h
+            Half/halfLimits.h
+            Half/toFloat.h
+            Iex/Iex.h
+            Iex/IexBaseExc.h
+            Iex/IexErrnoExc.h
+            Iex/IexMacros.h
+            Iex/IexMathExc.h
+            Iex/IexThrowErrnoExc.h
+            IlmImf/ImfArray.h
+            IlmImf/ImfAttribute.h
+            IlmImf/ImfAutoArray.h
+            IlmImf/ImfB44Compressor.h
+            IlmImf/ImfBoxAttribute.h
+            IlmImf/ImfCRgbaFile.h
+            IlmImf/ImfChannelList.h
+            IlmImf/ImfChannelListAttribute.h
+            IlmImf/ImfChromaticities.h
+            IlmImf/ImfChromaticitiesAttribute.h
+            IlmImf/ImfCompression.h
+            IlmImf/ImfCompressionAttribute.h
+            IlmImf/ImfCompressor.h
+            IlmImf/ImfConvert.h
+            IlmImf/ImfDoubleAttribute.h
+            IlmImf/ImfEnvmap.h
+            IlmImf/ImfEnvmapAttribute.h
+            IlmImf/ImfFloatAttribute.h
+            IlmImf/ImfFrameBuffer.h
+            IlmImf/ImfFramesPerSecond.h
+            IlmImf/ImfHeader.h
+            IlmImf/ImfHuf.h
+            IlmImf/ImfIO.h
+            IlmImf/ImfInputFile.h
+            IlmImf/ImfInt64.h
+            IlmImf/ImfIntAttribute.h
+            IlmImf/ImfKeyCode.h
+            IlmImf/ImfKeyCodeAttribute.h
+            IlmImf/ImfLineOrder.h
+            IlmImf/ImfLineOrderAttribute.h
+            IlmImf/ImfLut.h
+            IlmImf/ImfMatrixAttribute.h
+            IlmImf/ImfMisc.h
+            IlmImf/ImfName.h
+            IlmImf/ImfOpaqueAttribute.h
+            IlmImf/ImfOutputFile.h
+            IlmImf/ImfPixelType.h
+            IlmImf/ImfPizCompressor.h
+            IlmImf/ImfPreviewImage.h
+            IlmImf/ImfPreviewImageAttribute.h
+            IlmImf/ImfPxr24Compressor.h
+            IlmImf/ImfRational.h
+            IlmImf/ImfRationalAttribute.h
+            IlmImf/ImfRgba.h
+            IlmImf/ImfRgbaFile.h
+            IlmImf/ImfRgbaYca.h
+            IlmImf/ImfRleCompressor.h
+            IlmImf/ImfScanLineInputFile.h
+            IlmImf/ImfStandardAttributes.h
+            IlmImf/ImfStdIO.h
+            IlmImf/ImfStringAttribute.h
+            IlmImf/ImfTestFile.h
+            IlmImf/ImfThreading.h
+            IlmImf/ImfTileDescription.h
+            IlmImf/ImfTileDescriptionAttribute.h
+            IlmImf/ImfTileOffsets.h
+            IlmImf/ImfTiledInputFile.h
+            IlmImf/ImfTiledMisc.h
+            IlmImf/ImfTiledOutputFile.h
+            IlmImf/ImfTiledRgbaFile.h
+            IlmImf/ImfTimeCode.h
+            IlmImf/ImfTimeCodeAttribute.h
+            IlmImf/ImfVecAttribute.h
+            IlmImf/ImfVersion.h
+            IlmImf/ImfWav.h
+            IlmImf/ImfXdr.h
+            IlmImf/ImfZipCompressor.h
+            IlmImf/b44ExpLogTable.h
+            IlmThread/IlmThread.h
+            IlmThread/IlmThreadMutex.h
+            IlmThread/IlmThreadPool.h
+            IlmThread/IlmThreadSemaphore.h
+            Imath/ImathBox.h
+            Imath/ImathBoxAlgo.h
+            Imath/ImathColor.h
+            Imath/ImathColorAlgo.h
+            Imath/ImathEuler.h
+            Imath/ImathExc.h
+            Imath/ImathFrame.h
+            Imath/ImathFrustum.h
+            Imath/ImathFun.h
+            Imath/ImathGL.h
+            Imath/ImathGLU.h
+            Imath/ImathHalfLimits.h
+            Imath/ImathInt64.h
+            Imath/ImathInterval.h
+            Imath/ImathLimits.h
+            Imath/ImathLine.h
+            Imath/ImathLineAlgo.h
+            Imath/ImathMath.h
+            Imath/ImathMatrix.h
+            Imath/ImathMatrixAlgo.h
+            Imath/ImathPlane.h
+            Imath/ImathPlatform.h
+            Imath/ImathQuat.h
+            Imath/ImathRandom.h
+            Imath/ImathRoots.h
+            Imath/ImathShear.h
+            Imath/ImathSphere.h
+            Imath/ImathVec.h
+            Imath/ImathVecAlgo.h
+)
+
+
 # List the source files
 set(SRCS Half/half.cpp
          Iex/IexBaseExc.cpp
@@ -88,7 +206,7 @@ xmake_import_search_paths(ZLIB)
 
 
 # Declaration of the library
-xmake_create_static_library(OPENEXR openexr ${SRCS})
+xmake_create_static_library(OPENEXR openexr ${HEADERS} ${SRCS})
 
 if (NOT WIN32)
     xmake_add_to_property(OPENEXR COMPILE_FLAGS "-w")

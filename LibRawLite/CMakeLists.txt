@@ -1,3 +1,17 @@
+# List the header files
+set(HEADERS internal/defines.h
+            internal/libraw_internal_funcs.h
+            internal/var_defines.h
+            libraw/libraw.h
+            libraw/libraw_alloc.h
+            libraw/libraw_const.h
+            libraw/libraw_datastream.h
+            libraw/libraw_internal.h
+            libraw/libraw_types.h
+            libraw/libraw_version.h
+)
+
+
 # List the source files
 set(SRCS src/libraw_c_api.cpp
          src/libraw_cxx.cpp
@@ -9,7 +23,7 @@ set(SRCS src/libraw_c_api.cpp
 include_directories(.)
 
 # Declaration of the library
-xmake_create_static_library(RAWLITE rawlite ${SRCS})
+xmake_create_static_library(RAWLITE rawlite ${HEADERS} ${SRCS})
 
 xmake_add_to_list_property(RAWLITE COMPILE_DEFINITIONS "LIBRAW_NODLL;LIBRAW_LIBRARY_BUILD;NO_LCMS")
 

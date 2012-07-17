@@ -1,3 +1,9 @@
+# List the header files
+set(HEADERS png.h
+            pngconf.h
+)
+
+
 # List the source files
 set(SRCS png.c
          pngerror.c
@@ -22,7 +28,7 @@ set(SRCS png.c
 xmake_import_search_paths(ZLIB)
 
 # Declaration of the library
-xmake_create_static_library(PNG png ${SRCS})
+xmake_create_static_library(PNG png ${HEADERS} ${SRCS})
 
 if (NOT WIN32)
     xmake_add_to_property(PNG COMPILE_FLAGS "-w")

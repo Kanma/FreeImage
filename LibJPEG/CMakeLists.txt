@@ -1,3 +1,17 @@
+# List the header files
+set(HEADERS jconfig.h
+            jdct.h
+            jerror.h
+            jinclude.h
+            jmemsys.h
+            jmorecfg.h
+            jpegint.h
+            jpeglib.h
+            jversion.h
+            transupp.h
+)
+
+
 # List the source files
 set(SRCS jaricom.c
          jcapimin.c
@@ -50,7 +64,7 @@ set(SRCS jaricom.c
 
 
 # Declaration of the library
-xmake_create_static_library(JPEG jpeg ${SRCS})
+xmake_create_static_library(JPEG jpeg ${HEADERS} ${SRCS})
 
 # Compilation settings
 if (WIN32)
