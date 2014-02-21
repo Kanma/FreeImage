@@ -23,7 +23,7 @@
 #include <errno.h>
 #include <float.h>
 #include <math.h>
-#ifndef WIN32
+#ifndef _WIN32
 #include <netinet/in.h>
 #else
 #include <winsock2.h>

@@ -25,7 +25,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#ifdef WIN32
+#ifdef _WIN32
 #define bzero(p,sz) memset(p,0,sz)
 #endif
 

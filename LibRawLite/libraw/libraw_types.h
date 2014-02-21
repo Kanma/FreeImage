@@ -23,7 +23,7 @@
 #ifndef _LIBRAW_TYPES_H
 #define _LIBRAW_TYPES_H
 
-#ifndef WIN32
+#ifndef _WIN32
 #include <sys/time.h>
 #endif
 #include <stdio.h>
