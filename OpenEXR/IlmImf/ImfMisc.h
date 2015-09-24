@@ -45,6 +45,7 @@
 
 #include <ImfPixelType.h>
 #include <vector>
+#include <algorithm>
 #include <ImfCompressor.h>
 
 namespace Imf {
