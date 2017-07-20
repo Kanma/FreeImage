@@ -64,6 +64,7 @@
 #include <assert.h>
 #include <map>
 
+#include <algorithm>
 
 namespace Imf {
 
