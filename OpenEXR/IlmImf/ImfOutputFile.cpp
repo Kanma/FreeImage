@@ -59,6 +59,7 @@
 #include <fstream>
 #include <assert.h>
 
+#include <algorithm>
 
 namespace Imf {
 
